@@ -1,10 +1,13 @@
+import { config } from "../../config/app.config"
 
 export function log(message: any) {
     console.log(message)
 }
 
 export function debug(message: any) {
-    console.log(message)
+    if ( config.Debug ) {
+        console.log(message)
+    }
 }
 
 export function error(message: any) {
