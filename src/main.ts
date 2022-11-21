@@ -1,13 +1,21 @@
-import { isEmpty } from "lodash";
-
 import { bold } from "./libs/color";
 import { debug, error } from "./libs/log";
 
 export async function main() {
 
     let subcommand = process.argv[2]
-    if ( isEmpty(subcommand) ) {
-        subcommand = 'balance'
+    switch (subcommand) {
+        case "token" :
+            subcommand = 'balancePerToken'
+            break;
+
+        case "time" :
+            subcommand = 'balanceInTime'
+            break;
+    
+        default:
+            subcommand = 'totalBalance'
+            break;
     }
     debug(`Selected command ${bold(subcommand)}`)
 
