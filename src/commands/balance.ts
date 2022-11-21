@@ -7,7 +7,7 @@ import { printOutput } from '../libs/print';
 
 export function help () {
     return `
-  Usage: ${ bold('Show account balances [options]') }
+  Usage: ${ bold('Show account balance [options]') }
 
     ${dim('Options:')}
 
