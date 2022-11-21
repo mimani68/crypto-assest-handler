@@ -3,7 +3,7 @@ import { createInterface } from 'readline'
 import { isEmpty, omit } from 'lodash';
 
 import { log, debug, error } from '../log';
-import { Transactions } from '../../interface/transactions.interfaces';
+import { TotalTransactionsRespons, Transactions } from '../../interface/transactions.interfaces';
 import { config } from '../../config/app.config';
 
 
@@ -29,12 +29,11 @@ async function streamLoadData(address: string, cb: Function) {
             reject(error.message)
         });
         readLineStream.on('close', () => {
-            // log('Data parsing completed');
+            log('All recoreds calculated');
             resolve(result)
         })
     })
 }
-
 
 function balanceStreamAggregator(jsonData: any, newData: Transactions) {
     if (isEmpty(jsonData) && isEmpty(newData)) {
@@ -61,9 +60,15 @@ function balanceStreamAggregator(jsonData: any, newData: Transactions) {
 }
 
 export async function showBalance() {
+    let result: Array<TotalTransactionsRespons> = []
     let data: any = await streamLoadData(config.Database, balanceStreamAggregator)
     for (const key in data) {
-        data = omit(data, data[key])
+        let item: TotalTransactionsRespons = {
+            timestamp: data[key].timestamp,
+            token: data[key].token,
+            amount: data[key].amount,
+        }
+        result.push(item)
     }
-    return data
+    return result
 }

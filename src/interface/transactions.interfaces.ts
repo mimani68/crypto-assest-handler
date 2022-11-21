@@ -4,3 +4,10 @@ export interface Transactions {
     token: String;
     amount: String|Number;
 }
+
+export interface TotalTransactionsRespons {
+    timestamp: String|Number;
+    token: String;
+    amount: String|Number;
+}
+
