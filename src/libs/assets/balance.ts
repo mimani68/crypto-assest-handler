@@ -4,6 +4,7 @@ import { log, debug, error } from '../log';
 import { TotalTransactionsRespons, Transactions } from '../../interface/transactions.interfaces';
 import { config } from '../../config/app.config';
 import { LoadToken } from './loadTransaction';
+import { getPrice } from '../asset-price';
 
 
 export class BalanceToken {
@@ -47,6 +48,7 @@ export class BalanceToken {
                 token: data[key].token,
                 amount: data[key].amount,
             }
+            item.amount = await getPrice(item.token as string)
             result.push(item)
         }
         return result
