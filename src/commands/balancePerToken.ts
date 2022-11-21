@@ -3,7 +3,6 @@ import arg from 'arg';
 import { bold, dim } from "../libs/color";
 import { debug } from "../libs/log";
 import { printOutput } from '../libs/print';
-import { balancePerTokenHandler } from '../libs/assets/balancePerToken';
 import { BalanceToken } from '../libs/assets/balance';
 import { config } from '../config/app.config';
 
@@ -39,5 +38,4 @@ export async function main() {
   let token = args['--name'] as string
   let result = new BalanceToken(config.Database)
   printOutput(await result.balancePerTokenHandler(token.toUpperCase()))
-  printOutput(result)
 }

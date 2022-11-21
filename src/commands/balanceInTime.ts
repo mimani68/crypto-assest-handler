@@ -3,7 +3,6 @@ import arg from 'arg';
 import { bold, dim } from "../libs/color";
 import { debug } from "../libs/log";
 import { printOutput } from '../libs/print';
-import { balanceInTimeHandler } from '../libs/assets/balanceInTime';
 import { BalanceToken } from '../libs/assets/balance';
 import { config } from '../config/app.config';
 

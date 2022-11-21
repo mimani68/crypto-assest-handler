@@ -2,7 +2,6 @@ import arg from 'arg';
 
 import { bold, dim } from "../libs/color";
 import { debug } from "../libs/log";
-import { totalBalanceHandler } from '../libs/assets/totalBalance';
 import { printOutput } from '../libs/print';
 import { BalanceToken } from '../libs/assets/balance';
 import { config } from '../config/app.config';
