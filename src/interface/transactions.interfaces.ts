@@ -6,8 +6,8 @@ export interface Transactions {
 }
 
 export interface TotalTransactionsRespons {
-    timestamp: String|Number;
     token: String;
     amount: String|Number;
+    value: Number;
 }
 
