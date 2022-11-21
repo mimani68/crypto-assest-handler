@@ -22,6 +22,6 @@ npm run start
 ## Usage
 
 ```bash
-node dist/index.js balance
+node dist/index.js
 ```
 ![](./docs/get-total-balance.png)

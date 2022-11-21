@@ -1,10 +1,10 @@
-import { getPrice } from "./libs/asset-price";
 import { bold } from "./libs/color";
-import { debug, error } from "./libs/log";
+import { debug, error, log } from "./libs/log";
 
 export async function main() {
 
     let subcommand = process.argv[2]
+    debug(`Argument: ${ subcommand }`)
     switch (subcommand) {
         case "token" :
             subcommand = 'balancePerToken'
@@ -22,7 +22,7 @@ export async function main() {
             subcommand = 'totalBalance'
             break;
     }
-    debug(`Selected command ${bold(subcommand)}`)
+    log(`Command: ${bold(subcommand)}`)
 
     try {
         const command = await import(`./commands/${subcommand}`)

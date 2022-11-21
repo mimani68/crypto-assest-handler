@@ -54,6 +54,7 @@ export class BalanceToken {
             item.value = priceInUSD * +item.amount
             result.push(item)
         }
+        debug(result)
         return result
     }
 
@@ -70,6 +71,7 @@ export class BalanceToken {
         unset(coin, ['timestamp'])
         unset(coin, ['token'])
         unset(coin, ['transaction_type'])
+        debug(coin)
         return coin
     }
 
@@ -88,6 +90,7 @@ export class BalanceToken {
             unset(coin, ['token'])
             unset(coin, ['transaction_type'])
         }
+        debug(data)
         return data
     }
 
@@ -106,6 +109,7 @@ export class BalanceToken {
             unset(coin, ['token'])
             unset(coin, ['transaction_type'])
         }
+        debug(data)
         return data
     }
 }
