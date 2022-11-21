@@ -1,4 +1,8 @@
 
+export function log(message: any) {
+    console.log(message)
+}
+
 export function debug(message: any) {
     console.log(message)
 }

@@ -2,6 +2,7 @@ import arg from 'arg';
 
 import { bold, green, dim } from "../libs/color";
 import { debug, error } from "../libs/log";
+import { showBalance } from '../libs/assets/main';
 
 export function help () {
     return `
@@ -48,4 +49,5 @@ export async function main() {
   }
 
   debug(`Parsed target: ${args._}`)
+  showBalance()
 }
