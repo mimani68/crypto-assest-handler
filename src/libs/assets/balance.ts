@@ -40,6 +40,7 @@ export class BalanceToken {
     }
 
     async totalBalanceHandler() {
+        debug(`Finding all transactions`)
         let result: Array<TotalTransactionsRespons> = []
         let tokenLoader = new LoadToken()
         let data: any = await tokenLoader.loadAllTokens(this.fileAddress, this.balanceAggregator)
@@ -47,32 +48,63 @@ export class BalanceToken {
             let item: TotalTransactionsRespons = {
                 token: data[key].token,
                 amount: data[key].amount,
+                value: 0
             }
-            item.amount = await getPrice(item.token as string)
+            let priceInUSD = await getPrice(item.token as string)
+            item.value = priceInUSD * +item.amount
             result.push(item)
         }
         return result
     }
 
     async balancePerTokenHandler(token: string) {
+        debug(`Finding all transactions of token '${ token }'`)
         let tokenLoader = new LoadToken()
         let data: any = await tokenLoader.loadSpecificToken(this.fileAddress, token, this.balanceAggregator)
         if (isEmpty(data)) {
             return {}
         }
-        unset(data[token], ['token'])
-        unset(data[token], ['transaction_type'])
-        return data[token]
+        let coin: any = data[token]
+        let priceInUSD = await getPrice(token as string)
+        coin.value = coin.amount * priceInUSD
+        unset(coin, ['timestamp'])
+        unset(coin, ['token'])
+        unset(coin, ['transaction_type'])
+        return coin
     }
 
     async balanceInTimeHandler(time: string) {
+        debug(`Finding all transactions in timestamp '${ time }'`)
         let tokenLoader = new LoadToken()
         let data: any = await tokenLoader.loadTokenInTime(config.Database, time, this.balanceAggregator)
         if (isEmpty(data)) {
             return {}
         }
         for (const token in data) {
-            unset(data[token], 'transaction_type')
+            let coin: any = data[token]
+            let priceInUSD = await getPrice(token as string)
+            coin.value = coin.amount * priceInUSD
+            unset(coin, ['timestamp'])
+            unset(coin, ['token'])
+            unset(coin, ['transaction_type'])
+        }
+        return data
+    }
+
+    async balanceFileteredBtTimeAndTokenHandler(token: string, time: number) {
+        debug(`Finding all transactions in timestamp '${ time }' and token '${ token }'`)
+        let tokenLoader = new LoadToken()
+        let data: any = await tokenLoader.loadSpecificAndTimeRangeToken(this.fileAddress, token, +time, this.balanceAggregator)
+        if (isEmpty(data)) {
+            return {}
+        }
+        for (const token in data) {
+            let coin: any = data[token]
+            let priceInUSD = await getPrice(token as string)
+            coin.value = coin.amount * priceInUSD
+            unset(coin, ['timestamp'])
+            unset(coin, ['token'])
+            unset(coin, ['transaction_type'])
         }
         return data
     }

@@ -8,5 +8,6 @@ export interface Transactions {
 export interface TotalTransactionsRespons {
     token: String;
     amount: String|Number;
+    value: Number;
 }
 

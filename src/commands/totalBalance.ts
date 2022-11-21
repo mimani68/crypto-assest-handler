@@ -32,6 +32,6 @@ export async function main() {
     printOutput(help())
   }
 
-  let result = new BalanceToken(config.Database)
-  printOutput(await result.totalBalanceHandler())
+  let tokenBalanceOperator = new BalanceToken(config.Database)
+  printOutput(await tokenBalanceOperator.totalBalanceHandler())
 }

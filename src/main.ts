@@ -1,7 +1,9 @@
+import { getPrice } from "./libs/asset-price";
 import { bold } from "./libs/color";
 import { debug, error } from "./libs/log";
 
 export async function main() {
+
     let subcommand = process.argv[2]
     switch (subcommand) {
         case "token" :
@@ -11,7 +13,11 @@ export async function main() {
         case "time" :
             subcommand = 'balanceInTime'
             break;
-    
+
+        case "filter" :
+            subcommand = 'balancePerTokenInTime'
+            break;
+            
         default:
             subcommand = 'totalBalance'
             break;

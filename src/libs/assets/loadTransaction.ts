@@ -89,4 +89,30 @@ export class LoadToken {
         })
     }
 
+    async loadSpecificAndTimeRangeToken(address: string, token: string, timestamp: number, cb: Function) {
+        return new Promise((resolve, reject)=>{
+            let result = {};
+            let readLineStream = LoadToken.streamFileLoading(address)
+            readLineStream.on('line', (line: any) => {
+                let lineArray = line.split(',')
+                if ( lineArray[0] !== "timestamp" &&  +lineArray[0] === +timestamp && lineArray[2] === token ) {
+                    let transactionRecord: Transactions = {
+                        timestamp:        +lineArray[0],
+                        transaction_type:  lineArray[1],
+                        token:             lineArray[2],
+                        amount:           +lineArray[3]
+                    }
+                    result = cb(result, transactionRecord)
+                }
+            });
+            readLineStream.on('error', (error: any) => {
+                error(error.message)
+                reject(error.message)
+            });
+            readLineStream.on('close', () => {
+                resolve(result)
+            })
+        })
+    }
+
 }

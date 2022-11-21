@@ -36,6 +36,6 @@ export async function main() {
   }
 
   let time = args['--timestamp'] as string
-  let result = new BalanceToken(config.Database)
-  printOutput(await result.balanceInTimeHandler(time))
+  let tokenBalanceOperator = new BalanceToken(config.Database)
+  printOutput(await tokenBalanceOperator.balanceInTimeHandler(time))
 }
